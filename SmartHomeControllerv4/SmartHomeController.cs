@@ -127,7 +127,7 @@ public class Program
             switch (choice)
             {
                 case "1":
-                    //InstallDeviceMenu();
+                    InstallDeviceMenu();
                     break;
                 case "2":
                     //ControlDevicesMenu();
@@ -142,6 +142,93 @@ public class Program
                     break;
             }
         }
+    }
+    public static void InstallDeviceMenu()
+    {
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Intall a device name ");
+            Console.WriteLine("1. Install new smart light");
+            Console.WriteLine("2. Install a new smart camera");
+            Console.WriteLine("3. Return to main menu");
+            
+
+            Console.Write("Choose an option: ");
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    InstallSmartLightMenu();
+                    break;
+                case "2":
+                    //InstallSmartCameraMenu();
+                    break;
+                case "3":
+                    //ViewAllDevices();
+                    break;
+                case "4":
+                    return;
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+
+    }
+    public static void InstallSmartLightMenu()
+    {
+        Console.WriteLine("\nInstall smart light");
+        Console.WriteLine("Enter device ID:");
+        int deviceId =Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("\nEnter device name:");
+        string deviceName = Console.ReadLine();
+
+        Console.WriteLine("Enter brightness:");
+        double brightness = Convert.ToDouble(Console.ReadLine());
+
+        Console.WriteLine("Enter colour:");
+        string colour = Console.ReadLine();
+
+        SmartLight smartLight = new SmartLight(deviceId, deviceName , brightness,colour);
+
+        devices.Add(smartLight);
+        Console.WriteLine("Smart Light installed:");
+        Console.WriteLine($"Device ID :{smartLight.DeviceID}");
+        Console.WriteLine($"{smartLight.DeviceName}");
+        Console.WriteLine(smartLight.Brightness);
+        Console.WriteLine(smartLight.Colour);
+
+        Console.WriteLine("Enter ANY KEY");
+        Console.ReadKey();
+    }
+
+    public static void SaveDevices(string filepath,List<SmartDevice> devices)
+    {
+        var lines = new List<string>
+        {
+           " DeviceId, DeviceType ,Brightness, CameraResolution,CurrentTemperature,TargetTemperature,SpeakerVolume"
+        };
+        foreach (var device in devices)
+        {
+            string deviceLine="";
+            if (device is SmartLight light)
+            {
+                deviceLine = $"{light.DeviceID},SmartLight,{light.DeviceName},{light.Status},{light.Brightness},{light.Colour},,,";
+            }
+            lines.Add(deviceLine);
+            File.WriteAllLines(filepath,lines);
+
+        }
+    }
+    public static void InstallSmartCameraMenu()
+    {
+
+
+
+        Console.WriteLine("hi");
     }
 
 
